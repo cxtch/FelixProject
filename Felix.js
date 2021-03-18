@@ -6,13 +6,13 @@ var start = Date.now();
  * POLYFILLS
  * =============================
  */
-!Array.prototype.includes ? Array.prototype.includes = function (item) {
+Array.prototype.includes = function (item) {
     for (var i = 0; i < this.length; i++) {
         if (item === this[i])
             return true;
     }
     return false;
-} : void 0;
+}
 /**
  * =============================
  * GLOBALS
@@ -90,6 +90,7 @@ var Handler = {
             return false;
         if (data.charAt(0) !== this.prefix)
             return false;
+        data = data.match(/[A-z\d\s\!\@\#\$\%\^\&\*\(\)\?\.\<\,\;\\\`\~\"\:\+\=`]/g).join('');
         var com = data.trim().replace(this.prefix, '').toLowerCase().split(' ');
         if (this.findListener(com[0]) === -1)
             return true;
